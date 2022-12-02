@@ -25,6 +25,51 @@ void receiveEvent(int howMany)
 {
   
     char penis = Wire.read();
+    switch (penis){
+
+        case 'h': //high power mode
+          Serial.println("High power mode");
+          pwm = 200;
+          analogWrite(PWM1,pwm);
+          analogWrite(PWM2,pwm);
+          Serial.println("PWM:");  
+          Serial.print(pwm);
+          break;
+
+        case 'm': //medium power mode 
+          Serial.println("Medium power mode");
+          pwm = 100;
+          analogWrite(PWM1,pwm);
+          analogWrite(PWM2,pwm);
+          Serial.println("PWM:");  
+          Serial.print(pwm);
+          break;
+        
+        case 'l': //low power mode 
+          Serial.println("Low power mode");
+          pwm = 50;
+          analogWrite(PWM1,pwm);
+          analogWrite(PWM2,pwm);
+          Serial.println("PWM:");  
+          Serial.print(pwm);
+          break;
+        
+
+        case 'o': //off 
+          Serial.println("OFF");
+          pwm = 0;
+          analogWrite(PWM1,pwm);
+          analogWrite(PWM2,pwm);
+          Serial.println("PWM:");  
+          Serial.print(pwm);
+          break;     
+
+        default: 
+          Serial.println("Invalid value. Use 'h', 'm', 'l' or 'o'");    
+    }
+
+    
+ /*
   if(penis == 'O'){
     Serial.print("On");
     pwm = 50;
@@ -43,7 +88,8 @@ void receiveEvent(int howMany)
     Serial.print(pwm);
 
   }
+  */
+  
   
   Serial.println("");
-  // receive byte as an integer       // print the integer
 }
