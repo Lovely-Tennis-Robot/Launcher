@@ -24,72 +24,70 @@ void loop() {
 void receiveEvent(int howMany)
 {
   
-    char penis = Wire.read();
-    switch (penis){
+    char bruh = Wire.read();
+    switch(bruh){
+    
+    case 'O':
+      pwm = 0;
+      analogWrite(9, pwm); // set the PWM value to the specified pin
+      analogWrite(10, pwm);
+      Serial.print("PWM Value set to: ");
+      Serial.println(pwm);
+      break;
+    
+    case 'F':
+      pwm = 50;
+      analogWrite(9, pwm); // set the PWM value to the specified pin
+      analogWrite(10, pwm);
+      Serial.print("PWM Value set to: ");
+      Serial.println(pwm);
+      break;
+    
+    case 'b':
+      pwm = 25;
+      analogWrite(9, pwm); // set the PWM value to the specified pin
+      analogWrite(10, pwm);
+      Serial.print("PWM Value set to: ");
+      Serial.println(pwm);
+      break;
+      
+    case 'c':
+      pwm = 50;
+      analogWrite(9, pwm); // set the PWM value to the specified pin
+      analogWrite(10, pwm);
+      Serial.print("PWM Value set to: ");
+      Serial.println(pwm);
+      break;
+    
+    case 'd':
+      pwm = 75;
+      analogWrite(9, pwm); // set the PWM value to the specified pin
+      analogWrite(10, pwm);
+      Serial.print("PWM Value set to: ");
+      Serial.println(pwm);
+      break;
+    
+    case 'e':
+      pwm = 100;
+      analogWrite(9, pwm); // set the PWM value to the specified pin
+      analogWrite(10, pwm);
+      Serial.print("PWM Value set to: ");
+      Serial.println(pwm);
+      break;
+      
+    case 'f':
+      pwm = 125;
+      analogWrite(9, pwm); // set the PWM value to the specified pin
+      analogWrite(10, pwm);
+      Serial.print("PWM Value set to: ");
+      Serial.println(pwm);
+      break;
+      
 
-        case 'h': //high power mode
-          Serial.println("High power mode");
-          pwm = 200;
-          analogWrite(PWM1,pwm);
-          analogWrite(PWM2,pwm);
-          Serial.println("PWM:");  
-          Serial.print(pwm);
-          break;
-
-        case 'm': //medium power mode 
-          Serial.println("Medium power mode");
-          pwm = 100;
-          analogWrite(PWM1,pwm);
-          analogWrite(PWM2,pwm);
-          Serial.println("PWM:");  
-          Serial.print(pwm);
-          break;
-        
-        case 'l': //low power mode 
-          Serial.println("Low power mode");
-          pwm = 50;
-          analogWrite(PWM1,pwm);
-          analogWrite(PWM2,pwm);
-          Serial.println("PWM:");  
-          Serial.print(pwm);
-          break;
-        
-
-        case 'o': //off 
-          Serial.println("OFF");
-          pwm = 0;
-          analogWrite(PWM1,pwm);
-          analogWrite(PWM2,pwm);
-          Serial.println("PWM:");  
-          Serial.print(pwm);
-          break;     
-
-        default: 
-          Serial.println("Invalid value. Use 'h', 'm', 'l' or 'o'");    
+    default: 
+      Serial.println("Invalid value. Use 'h', 'm', 'l' or 'o'");    
     }
 
-    
- /*
-  if(penis == 'O'){
-    Serial.print("On");
-    pwm = 50;
-    analogWrite(PWM1,pwm);
-    analogWrite(PWM2,pwm);
-    Serial.println("PWM:");  
-    Serial.print(pwm);
-
-  }
-  else if(penis == 'F'){
-    Serial.print("Off");
-    pwm = 50;
-    analogWrite(PWM1,0);
-    analogWrite(PWM2,0);
-    Serial.println("PWM:");  
-    Serial.print(pwm);
-
-  }
-  */
-  
   
   Serial.println("");
 }
