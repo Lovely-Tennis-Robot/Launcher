@@ -1,0 +1,44 @@
+#define direction_pin 3
+#define step_pin 2
+#define enable_pin 4
+
+//#include <AccelStepper.h>
+#include <ezButton.h>
+
+
+//AccelStepper Actuator(1, 3, 2);
+ezButton limitSwitch(7);
+
+
+void setup() {
+  Serial.begin(9600);
+  //Actuator.setMaxSpeed(10000);
+  //Actuator.setSpeed(9990);
+  limitSwitch.setDebounceTime(50);
+
+  pinMode(direction_pin, OUTPUT);
+  pinMode(step_pin, OUTPUT);
+  pinMode(4, OUTPUT);
+  
+  digitalWrite(enable_pin, HIGH);
+  digitalWrite(direction_pin, HIGH);
+  
+  while(limitSwitch.getState()){
+    digitalWrite(direction_pin, HIGH);
+    limitSwitch.loop();
+    digitalWrite(step_pin, HIGH);
+    digitalWrite(step_pin, LOW);
+    delay(1);
+    Serial.println("reversing");
+  }
+ digitalWrite(direction_pin, LOW);
+  
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  digitalWrite(step_pin, HIGH);
+    digitalWrite(step_pin, LOW);
+    delay(1);
+ 
+}
