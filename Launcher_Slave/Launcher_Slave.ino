@@ -8,7 +8,7 @@ int pwm;
 
 void setup()
 {
-  Wire.begin(4);                // join i2c bus with address #5
+  Wire.begin(1);                // join i2c bus with address #5
   Wire.onReceive(receiveEvent); // register event
   pinMode(PWM1,OUTPUT);
   Serial.begin(9600);           // start serial for output
@@ -27,7 +27,7 @@ void receiveEvent(int howMany)
     char bruh = Wire.read();
     switch(bruh){
     
-    case 'O':
+    case '0':
       pwm = 0;
       analogWrite(9, pwm); // set the PWM value to the specified pin
       analogWrite(10, pwm);
@@ -35,15 +35,15 @@ void receiveEvent(int howMany)
       Serial.println(pwm);
       break;
     
-    case 'F':
-      pwm = 50;
+    case '1':
+      pwm = 10;
       analogWrite(9, pwm); // set the PWM value to the specified pin
       analogWrite(10, pwm);
       Serial.print("PWM Value set to: ");
       Serial.println(pwm);
       break;
     
-    case 'b':
+    case '2':
       pwm = 25;
       analogWrite(9, pwm); // set the PWM value to the specified pin
       analogWrite(10, pwm);
@@ -51,7 +51,7 @@ void receiveEvent(int howMany)
       Serial.println(pwm);
       break;
       
-    case 'c':
+    case '3':
       pwm = 50;
       analogWrite(9, pwm); // set the PWM value to the specified pin
       analogWrite(10, pwm);
@@ -59,7 +59,7 @@ void receiveEvent(int howMany)
       Serial.println(pwm);
       break;
     
-    case 'd':
+    case '4':
       pwm = 75;
       analogWrite(9, pwm); // set the PWM value to the specified pin
       analogWrite(10, pwm);
@@ -67,7 +67,7 @@ void receiveEvent(int howMany)
       Serial.println(pwm);
       break;
     
-    case 'e':
+    case '5':
       pwm = 100;
       analogWrite(9, pwm); // set the PWM value to the specified pin
       analogWrite(10, pwm);
@@ -75,7 +75,7 @@ void receiveEvent(int howMany)
       Serial.println(pwm);
       break;
       
-    case 'f':
+    case '6`':
       pwm = 125;
       analogWrite(9, pwm); // set the PWM value to the specified pin
       analogWrite(10, pwm);

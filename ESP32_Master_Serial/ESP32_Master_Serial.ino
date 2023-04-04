@@ -24,7 +24,7 @@ bool mstat4 = false;
 void setup() {
   Wire.begin(21,22);
   Serial.begin(9600);
-  Serial.println("\nI2C Scanner");
+  //Serial.println("\nI2C Scanner");
 
   WiFi.softAP(ssid, password);
   WiFi.softAPConfig(local_ip, gateway, subnet);
@@ -44,7 +44,7 @@ void setup() {
   server.onNotFound(handle_NotFound);
   
   server.begin();
-  Serial.println("HTTP server started");
+  //Serial.println("HTTP server started");
 }
 void loop() {
   server.handleClient();
@@ -57,56 +57,47 @@ void handle_OnConnect() {
   mstat3 = false;
   mstat4 = false;
   
-  Serial.println("GPIO4 Status: OFF | GPIO5 Status: OFF | GPIO6 Status: OFF | GPIO7 Status: OFF | GPIO8 Status: OFF");
+  //Serial.println("GPIO4 Status: OFF | GPIO5 Status: OFF | GPIO6 Status: OFF | GPIO7 Status: OFF | GPIO8 Status: OFF");
   server.send(200, "text/html", SendHTML(mstat,mstat1,mstat2,mstat3,mstat4)); 
 }
 
 void handle_motoron() {
-  mstat = true;
-  Wire.beginTransmission(1); 
-  Wire.write('1');  
-  Serial.println("please work");       
-  Wire.endTransmission();
+  mstat = true;  
+  Serial.write('1');
+  Serial.write('c');      
   LED1status = HIGH;
-  Serial.println("GPIO4 Status: ON");
+  //Serial.println("GPIO4 Status: ON");
   server.send(200, "text/html", SendHTML(true,mstat1, mstat2, mstat3, mstat4)); 
 }
 
 void handle_motoroff() {
   mstat = false;  
-  Wire.beginTransmission(1);
-  Wire.write('0');         
-  Wire.endTransmission();
-  Serial.println("GPIO4 Status: OFF");
+  Serial.write('0');
+  Serial.write('o');          
+  //Serial.println("GPIO4 Status: OFF");
   server.send(200, "text/html", SendHTML(false,mstat1, mstat2, mstat3, mstat4)); 
 }
 
 void handle_motoron1() {
   mstat1 = true;
-  Wire.beginTransmission(4); 
-  Wire.write('1');  
-  Serial.println("please work");       
-  Wire.endTransmission();
-  Serial.println("GPIO5 Status: ON");
+  Serial.write('a');  
+  //Serial.println("please work");       
+  //Serial.println("GPIO5 Status: ON");
   server.send(200, "text/html", SendHTML(mstat,true, mstat2, mstat3, mstat4)); 
 }
 
 void handle_motoroff1() {
   mstat1 = false;
-  Wire.beginTransmission(4);
-  Wire.write('0');         
-  Wire.endTransmission();
-  Serial.println("GPIO5 Status: OFF");
+  Serial.write('o');         
+  //Serial.println("GPIO5 Status: OFF");
   server.send(200, "text/html", SendHTML(mstat,false, mstat2, mstat3, mstat4)); 
 }
 
 void handle_motoroff2() {
-  mstat2 = false;
-  Wire.beginTransmission(4);
-  Wire.write('E');         
-  Wire.endTransmission();
-  Serial.println("GPIO6 Status: OFF");
-  server.send(200, "text/html", SendHTML(mstat,mstat1, false, mstat3, mstat4)); 
+  mstat1 = false;
+  Serial.write('o');         
+  //Serial.println("GPIO5 Status: OFF");
+  server.send(200, "text/html", SendHTML(mstat,false, mstat2, mstat3, mstat4)); 
 }
 
 
@@ -114,9 +105,9 @@ void handle_motoron2() {
   mstat2 = true;
   Wire.beginTransmission(4); 
   Wire.write('T');  
-  Serial.println("please work");       
+  //Serial.println("please work");       
   Wire.endTransmission();
-  Serial.println("GPIO6 Status: ON");
+  //Serial.println("GPIO6 Status: ON");
   server.send(200, "text/html", SendHTML(mstat,mstat1, true, mstat3, mstat4)); 
 }
 
@@ -125,7 +116,7 @@ void handle_motoroff3() {
   Wire.beginTransmission(4);
   Wire.write('Y');         
   Wire.endTransmission();
-  Serial.println("GPIO7 Status: OFF");
+  //Serial.println("GPIO7 Status: OFF");
   server.send(200, "text/html", SendHTML(mstat,mstat1, mstat2, false, mstat4)); 
 }
 
@@ -134,9 +125,9 @@ void handle_motoron3() {
   mstat3 = true;
   Wire.beginTransmission(4); 
   Wire.write('U');  
-  Serial.println("please work");       
+  //Serial.println("please work");       
   Wire.endTransmission();
-  Serial.println("GPIO7 Status: ON");
+  //Serial.println("GPIO7 Status: ON");
   server.send(200, "text/html", SendHTML(mstat,mstat1, mstat2, true, mstat4)); 
 }
 
@@ -145,9 +136,9 @@ void handle_motoron4() {
   mstat4 = true;
   Wire.beginTransmission(4); 
   Wire.write('H');  
-  Serial.println("please work");       
+  //Serial.println("please work");       
   Wire.endTransmission();
-  Serial.println("GPIO8 Status: ON");
+  //Serial.println("GPIO8 Status: ON");
   server.send(200, "text/html", SendHTML(mstat,mstat1, mstat2, mstat3, true)); 
 }
 
@@ -156,7 +147,7 @@ void handle_motoroff4() {
   Wire.beginTransmission(4);
   Wire.write('J');         
   Wire.endTransmission();
-  Serial.println("GPIO8 Status: OFF");
+  //Serial.println("GPIO8 Status: OFF");
   server.send(200, "text/html", SendHTML(mstat,mstat1, mstat2, mstat3, false)); 
 }
 
