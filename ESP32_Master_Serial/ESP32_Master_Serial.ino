@@ -63,8 +63,8 @@ void handle_OnConnect() {
 
 void handle_motoron() {
   mstat = true;  
-  Serial.write('1');
-  Serial.write('c');      
+  Serial.write('2');
+  Serial.write('b');      
   LED1status = HIGH;
   //Serial.println("GPIO4 Status: ON");
   server.send(200, "text/html", SendHTML(true,mstat1, mstat2, mstat3, mstat4)); 
@@ -72,15 +72,17 @@ void handle_motoron() {
 
 void handle_motoroff() {
   mstat = false;  
+  Serial.write('o');
   Serial.write('0');
-  Serial.write('o');          
+            
   //Serial.println("GPIO4 Status: OFF");
   server.send(200, "text/html", SendHTML(false,mstat1, mstat2, mstat3, mstat4)); 
 }
 
 void handle_motoron1() {
   mstat1 = true;
-  Serial.write('a');  
+  Serial.write('2');
+  Serial.write('s');  
   //Serial.println("please work");       
   //Serial.println("GPIO5 Status: ON");
   server.send(200, "text/html", SendHTML(mstat,true, mstat2, mstat3, mstat4)); 
@@ -88,7 +90,8 @@ void handle_motoron1() {
 
 void handle_motoroff1() {
   mstat1 = false;
-  Serial.write('o');         
+  Serial.write('o');
+  Serial.write('0');        
   //Serial.println("GPIO5 Status: OFF");
   server.send(200, "text/html", SendHTML(mstat,false, mstat2, mstat3, mstat4)); 
 }

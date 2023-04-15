@@ -51,6 +51,14 @@ void loop() {
     switch(bruh){
 
     case '0':
+      pwm = 0; //turn off motor
+      analogWrite(9, pwm); // set the PWM value to the specified pin
+      analogWrite(10, pwm);
+      Serial.print("PWM Value set to: ");
+      Serial.println(pwm);
+      
+      FeedOff(); //turn off feeder
+      
       digitalWrite(enable_pin, HIGH); //enable stepper motor 
       while(limitSwitch.getState()){  //Home 
         limitSwitch.loop();
@@ -80,6 +88,14 @@ void loop() {
       }else{
         Serial.println("Position limit exceeded");
       }
+
+      pwm = 25;
+      analogWrite(9, pwm); // set the PWM value to the specified pin
+      analogWrite(10, pwm);
+      Serial.print("PWM Value set to: ");
+      Serial.println(pwm);
+      delay(100);
+      FeedOn();
       break;
       
     case '2':
@@ -98,68 +114,7 @@ void loop() {
       }else{
         Serial.println("Position limit exceeded");
       }
-      break;
-      
-    case '3':
-      digitalWrite(direction_pin, forward_direction);
-      digitalWrite(enable_pin, HIGH);
-      steps = 300;
-      if((step_position+steps)<=MAX_POSITION){
-        step_position+=steps;
-        for(int i=1;i<=steps;i++){
-          digitalWrite(step_pin, HIGH);
-          digitalWrite(step_pin, LOW);
-          Serial.print("stepping: ");
-          Serial.println(i);
-          delay(1);
-        }
-      }else{
-        Serial.println("Position limit exceeded");
-      }
-      break;
-      
-    case '4':
-      digitalWrite(direction_pin, forward_direction);
-      digitalWrite(enable_pin, HIGH);
-      steps = 400;
-      if((step_position+steps)<=MAX_POSITION){
-        step_position+=steps;
-        for(int i=1;i<=steps;i++){
-          digitalWrite(step_pin, HIGH);
-          digitalWrite(step_pin, LOW);
-          Serial.print("stepping: ");
-          Serial.println(i);
-          delay(1);
-        }
-     case 'o':
-      pwm = 0;
-      analogWrite(9, pwm); // set the PWM value to the specified pin
-      analogWrite(10, pwm);
-      Serial.print("PWM Value set to: ");
-      Serial.println(pwm);
-      FeedOff();
-      break;
-    
-    case 'a':
-      pwm = 10;
-      analogWrite(9, pwm); // set the PWM value to the specified pin
-      analogWrite(10, pwm);
-      Serial.print("PWM Value set to: ");
-      Serial.println(pwm);
-      FeedOn();
-      break;
-    
-    case 'b':
-      pwm = 25;
-      analogWrite(9, pwm); // set the PWM value to the specified pin
-      analogWrite(10, pwm);
-      Serial.print("PWM Value set to: ");
-      Serial.println(pwm);
-      delay(100);
-      FeedOn();
-      break;
-      
-    case 'c':
+
       pwm = 50;
       analogWrite(9, pwm); // set the PWM value to the specified pin
       analogWrite(10, pwm);
@@ -168,45 +123,39 @@ void loop() {
       delay(100);
       FeedOn();
       break;
-    
-    case 'd':
-      pwm = 75;
-      analogWrite(9, pwm); // set the PWM value to the specified pin
-      analogWrite(10, pwm);
-      Serial.print("PWM Value set to: ");
-      Serial.println(pwm);
-      delay(100);
-      FeedOn();
-      break;
-    
-    case 'e':
-      pwm = 100;
-      analogWrite(9, pwm); // set the PWM value to the specified pin
-      analogWrite(10, pwm);
-      Serial.print("PWM Value set to: ");
-      Serial.println(pwm);
-      delay(100);
-      FeedOn();
-      break;
       
-    case 'f':
-      pwm = 125;
-      analogWrite(9, pwm); // set the PWM value to the specified pin
-      analogWrite(10, pwm);
-      Serial.print("PWM Value set to: ");
-      Serial.println(pwm);
-      break;
+    case '3':
+      digitalWrite(direction_pin, forward_direction);
+      digitalWrite(enable_pin, HIGH);
+      steps = 200;
+      if((step_position+steps)<=MAX_POSITION){
+        step_position+=steps;
+        for(int i=1;i<=steps;i++){
+          digitalWrite(step_pin, HIGH);
+          digitalWrite(step_pin, LOW);
+          Serial.print("stepping: ");
+          Serial.println(i);
+          delay(1);
+        }
       }else{
         Serial.println("Position limit exceeded");
       }
-      break;
+      while(limitSwitch.getState()){  //Home 
+        limitSwitch.loop();
+        digitalWrite(direction_pin, reverse_direction);
+        digitalWrite(step_pin, HIGH);
+        digitalWrite(step_pin, LOW);
+        delay(1);
+        Serial.println("reversing");
+      }
       
-    case 's':
-      pwm = 40;
+
+      pwm = 0;
       analogWrite(9, pwm); // set the PWM value to the specified pin
-      analogWrite(10, pwm-15);
+      analogWrite(10, pwm);
       Serial.print("PWM Value set to: ");
       Serial.println(pwm);
+      delay(100);
       FeedOn();
       break;
 
